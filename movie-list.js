@@ -7,6 +7,7 @@ function fetchMovieData(url, callback) {
 
 	httpRequest.onreadystatechange = function() {
 		if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+			_('loading-message').innerHTML = '';
 			callback(JSON.parse(httpRequest.responseText));
 		}
 	};
@@ -16,6 +17,9 @@ function fetchMovieData(url, callback) {
 
 _('search').addEventListener('submit', function(e) {
 	e.preventDefault();
+
+	_('loading-message').innerHTML = 'Loading...';
+
 	var searchWord = _('movie-input').value.trim();
 	var omdbBaseUrlList = 'http://www.omdbapi.com/?s=';
 	var urlForList = omdbBaseUrlList + searchWord;
