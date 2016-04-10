@@ -3,7 +3,6 @@
 document.getElementById('search-button').addEventListener('click', function () {
     console.log('Listing movies..');
 	
-
 	var searchWord = document.getElementById('movie-input').value;
 	var httpRequest;
 	
@@ -18,77 +17,55 @@ document.getElementById('search-button').addEventListener('click', function () {
 		console.log('used the function fetchMovieData');
         httpRequest = new XMLHttpRequest();
 
-        httpRequest.onreadystatechange = callback;
-
+        httpRequest.onreadystatechange = function() {
+			if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+				callback();
+			}
+		};
         httpRequest.open('GET', url);
         httpRequest.send();
     }
 
     function logMovies() {
-        if(httpRequest.readyState === 4 && httpRequest.status === 200) {
-			
-            var movieList = JSON.parse(httpRequest.responseText);
-			console.log(movieList);
-			
-			//this is for looping the results from parsed JSON -array
-			document.getElementById('listing-header').innerHTML = 'Your search revealed following results..';
-            movieList.Search.forEach(function(movie) {
-                console.log(movie.Title);
-				
-				
-				var btn = document.createElement('li');
-				var title = document.createTextNode(movie.Title);
-				btn.appendChild(title);
-				//btn.setAttribute('id', indexCounter);
-				btn.addEventListener('click', function() {
-					showMovieDetails(movie.Title);
-				}, false);
-				document.getElementById('movie-listing').appendChild(btn);
-				
-				function showMovieDetails(movie) {
-					console.log('We are now checking the movie details');
-					
-					var omdbBaseUrlSingle = 'http://www.omdbapi.com/?t=';
-					var plot = '&plot=full'
-					var UrlForSingle = omdbBaseUrlSingle + movie + plot;
-					
-					fetchMovieData(UrlForSingle, showMovieData);
-					/*
-					  function fetchMovieData(url, callback) {
-						httpRequest = new XMLHttpRequest();
+		var movieList = JSON.parse(httpRequest.responseText);
+		console.log(movieList);
 
-						httpRequest.onreadystatechange = callback;
+		//this is for looping the results from parsed JSON -array
+		document.getElementById('listing-header').innerHTML = 'Your search revealed following results..';
+		movieList.Search.forEach(function(movie) {
+			var movieElement = document.createElement('li');
+			var title = document.createTextNode(movie.Title);
+			movieElement.appendChild(title);
+			movieElement.addEventListener('click', function() {
+				showMovieDetails(movie.Title);
+			}, false);
+			document.getElementById('movie-listing').appendChild(movieElement);
 
-						httpRequest.open('GET', url);
-						httpRequest.send();
-					}
-					*/
-					function showMovieData() {
-						if(httpRequest.readyState === 4 && httpRequest.status === 200) {
-							var movie = JSON.parse(httpRequest.responseText);
-							var rated = JSON.stringify(movie.Rated);
-							var title = JSON.stringify(movie.Title);
-							var year = JSON.stringify(movie.Year);
-							var rated = JSON.stringify(movie.Rated);
-							var plot = JSON.stringify(movie.Plot);
-							
-							document.getElementById('title-of-movie').innerHTML = title;
-							document.getElementById('year-of-movie').innerHTML = year;
-							document.getElementById('rate-of-movie').innerHTML = rated;
-							document.getElementById('plot-of-movie').innerHTML = plot;
-			
-						}
-					}
-					
+			function showMovieDetails(movie) {
+				console.log('We are now checking the movie details');
+
+				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?t=';
+				var plot = '&plot=full'
+				var UrlForSingle = omdbBaseUrlSingle + movie + plot;
+
+				fetchMovieData(UrlForSingle, showMovieData);
+
+				function showMovieData() {
+					var movie = JSON.parse(httpRequest.responseText);
+					var rated = JSON.stringify(movie.Rated);
+					var title = JSON.stringify(movie.Title);
+					var year = JSON.stringify(movie.Year);
+					var rated = JSON.stringify(movie.Rated);
+					var plot = JSON.stringify(movie.Plot);
+
+					document.getElementById('title-of-movie').innerHTML = title;
+					document.getElementById('year-of-movie').innerHTML = year;
+					document.getElementById('rate-of-movie').innerHTML = rated;
+					document.getElementById('plot-of-movie').innerHTML = plot;
 				}
-				
-            });
-			
-            console.log(movieList);
-			
-        }
+			}
+		});
     }
-
 });
 
 
