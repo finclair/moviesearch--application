@@ -4,20 +4,13 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<style>
-			a {display:block;}
-			button {display:block}
-		</style>
+		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     </head>
-	
-	<!-- Bootstrap -->
-	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	
     <body>
 		<nav class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
-					<span class="glyphicon glyphicon-film" style="font-size: 45px;"></span>
+					<span class="glyphicon glyphicon-film"></span>
 					<a class="navbar-brand" href="index.html">Movie Seeker</a>
 				</div>
 			</div>
@@ -25,37 +18,27 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-8">
-
 					<label for="movie-input">Write the name of the movie here:</label>
 					<input id="movie-input">
 					<button id="search-button" type="submit">Search</button>
 
-					<label for="random-button">Or get a random movie</label>
-					<button id="random-button" class="btn btn-primary" type="submit">Random</button>
-
-
-
 					<h3 id= "listing-header"></h3>
 
-					<ul id="movie-listing">
-
-					</ul>
-
-					<p id="title-of-movie"></p>
-					<p id="year-of-movie"></p>
-					<p id="rate-of-movie"></p>
-					<p id="plot-of-movie"></p>
+					<ul id="movie-listing"></ul>
+					<article>
+						<p id="title-of-movie"></p>
+						<p id="year-of-movie"></p>
+						<p id="rate-of-movie"></p>
+						<p id="plot-of-movie"></p>
+					</article>
 				</div>
 			</div>
 		</div>
 
-        <script src="movie-list.js"></script>
-		
-		
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="bootstrap/js/bootstrap.min.js"></script>
-		
+		<script src="movie-list.js"></script>
     </body>
 </html>
