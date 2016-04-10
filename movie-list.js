@@ -8,18 +8,19 @@ document.getElementById('search-button').addEventListener('click', function () {
 	var httpRequest;
 	
 	var omdbBaseUrlList = 'http://www.omdbapi.com/?s='
-	var Url = omdbBaseUrlList + searchWord;
+	var UrlForList = omdbBaseUrlList + searchWord;
 
     if (searchWord) {
-        fetchMovieList(Url, logMovies);
+        fetchMovieData(UrlForList, logMovies);
     }
 
-    function fetchMovieList(url, callback) {
+    function fetchMovieData(url, callback) {
+		console.log('used the function fetchMovieData');
         httpRequest = new XMLHttpRequest();
 
         httpRequest.onreadystatechange = callback;
 
-        httpRequest.open('GET', Url);
+        httpRequest.open('GET', url);
         httpRequest.send();
     }
 
@@ -35,31 +36,33 @@ document.getElementById('search-button').addEventListener('click', function () {
                 console.log(movie.Title);
 				
 				
-				var btn = document.createElement('button');
+				var btn = document.createElement('li');
 				var title = document.createTextNode(movie.Title);
 				btn.appendChild(title);
 				//btn.setAttribute('id', indexCounter);
-				btn.addEventListener('click', function() showMovieDetails(movie.Title), false);
-				document.body.appendChild(btn);
+				btn.addEventListener('click', function() {
+					showMovieDetails(movie.Title);
+				}, false);
+				document.getElementById('movie-listing').appendChild(btn);
 				
 				function showMovieDetails(movie) {
 					console.log('We are now checking the movie details');
 					
 					var omdbBaseUrlSingle = 'http://www.omdbapi.com/?t=';
 					var plot = '&plot=full'
-					var Url2 = omdbBaseUrlSingle + movie + plot;
+					var UrlForSingle = omdbBaseUrlSingle + movie + plot;
 					
-					fetchMovieData(Url2, showMovieData);
-					
-					  function fetchMovieData(Url2, callback) {
+					fetchMovieData(UrlForSingle, showMovieData);
+					/*
+					  function fetchMovieData(url, callback) {
 						httpRequest = new XMLHttpRequest();
 
 						httpRequest.onreadystatechange = callback;
 
-						httpRequest.open('GET', Url2);
+						httpRequest.open('GET', url);
 						httpRequest.send();
 					}
-					
+					*/
 					function showMovieData() {
 						if(httpRequest.readyState === 4 && httpRequest.status === 200) {
 							var movie = JSON.parse(httpRequest.responseText);
