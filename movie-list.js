@@ -14,7 +14,8 @@ function fetchMovieData(url, callback) {
 	httpRequest.send();
 }
 
-_('search-button').addEventListener('click', function () {
+_('search').addEventListener('submit', function(e) {
+	e.preventDefault();
 	var searchWord = _('movie-input').value.trim();
 	var omdbBaseUrlList = 'http://www.omdbapi.com/?s=';
 	var urlForList = omdbBaseUrlList + searchWord;
@@ -26,7 +27,13 @@ _('search-button').addEventListener('click', function () {
     function logMovies(movieList) {
 		console.log(movieList);
 
+		_('movie-listing').innerHTML = '';
+
+		if (!movieList.Search) {
+			return;
+		}
 		_('listing-header').innerHTML = 'Your search revealed following results..';
+
 		movieList.Search.forEach(function(movie) {
 			var movieElement = document.createElement('li');
 			var title = document.createTextNode(movie.Title);
