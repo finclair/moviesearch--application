@@ -3,6 +3,7 @@ function _(id) {
 }
 
 function fetchMovieData(url, callback) {
+	_('loading-message').innerHTML = 'Loading...';
 	var httpRequest = new XMLHttpRequest();
 
 	httpRequest.onreadystatechange = function() {
@@ -17,8 +18,6 @@ function fetchMovieData(url, callback) {
 
 _('search').addEventListener('submit', function(e) {
 	e.preventDefault();
-
-	_('loading-message').innerHTML = 'Loading...';
 
 	var searchWord = _('movie-input').value.trim();
 	var omdbBaseUrlList = 'http://www.omdbapi.com/?s=';
