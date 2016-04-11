@@ -9,7 +9,8 @@ function fetchMovieData(url, callback) {
 	httpRequest.onreadystatechange = function() {
 		if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 			_('loading-message').innerHTML = '';
-			callback(JSON.parse(httpRequest.responseText));
+			response = JSON.parse(httpRequest.responseText)
+			callback(response);
 		}
 	};
 	httpRequest.open('GET', url);
