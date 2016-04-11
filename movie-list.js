@@ -36,7 +36,7 @@ _('search').addEventListener('submit', function(e) {
 			return;
 		}
 		_('listing-header').innerHTML = 'Your search revealed following results..';
-
+//
 		movieList.Search.forEach(function(movie) {
 			var movieElement = document.createElement('li');
 			var title = document.createTextNode(movie.Title);
