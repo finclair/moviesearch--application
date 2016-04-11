@@ -42,6 +42,7 @@ _('search').addEventListener('submit', function(e) {
 			var movieElement = document.createElement('li');
 			var title = document.createTextNode(movie.Title);
 			movieElement.appendChild(title);
+			movieElement.setAttribute("class", "list-group-item");
 			movieElement.addEventListener('click', function() {
 				showMovieDetails(movie.imdbID);
 			}, false);
