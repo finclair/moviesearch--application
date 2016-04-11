@@ -20,8 +20,13 @@
 			<div class="row">
 				<div class="col-sm-8">
 					<form id="search">
-						<label for="movie-input">Write the name of the movie here:</label>
+						<label for="movie-input">Type the name of the movie here:</label>
 						<input id="movie-input">
+						<input type="submit" value="Search">
+					</form>
+					<form id="tvshow">
+						<label for="tvshow-input">Type the name of the TV show here:</label>
+						<input id="tvshow-input" value="batman">
 						<input type="submit" value="Search">
 					</form>
 					<div id="loading-message"></div>
@@ -34,6 +39,16 @@
 						<p id="rate-of-movie"></p>
 						<p id="plot-of-movie"></p>
 					</article>
+					
+					<ul id="tvshow-listing"></ul>
+					<article>
+						<p id="title-of-tvshow"></p>
+						<p id="genre-of-tvshow"></p>
+						<p id="year-of-tvshow"></p>	
+						<p id="plot-of-tvshow"></p>
+					</article>
+					<table id="S1episodes"style="width:50%"></table>
+					
 				</div>
 			</div>
 		</div>
