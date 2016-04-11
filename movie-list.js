@@ -42,11 +42,19 @@ _('search').addEventListener('submit', function(e) {
 			var movieElement = document.createElement('li');
 			var title = document.createTextNode(movie.Title);
 			movieElement.appendChild(title);
-			movieElement.setAttribute("class", "list-group-item");
+			//movieElement.setAttribute("class", "list-group-item");
+
+			var a = document.createElement('a');
+			a.href = "#";
+			a.appendChild(title);
+			a.setAttribute("class", "list-group-item");
+
 			movieElement.addEventListener('click', function() {
 				showMovieDetails(movie.imdbID);
 			}, false);
 			_('movie-listing').appendChild(movieElement);
+
+			movieElement.appendChild(a);
 
 			function showMovieDetails(movieID) {
 				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?plot=full&i=';
