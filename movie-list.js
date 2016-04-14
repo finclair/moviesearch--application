@@ -186,9 +186,9 @@ _('tvshow').addEventListener('submit', function(e) {
 					var cell2 = row.insertCell(1);
 					var cell3 = row.insertCell(2);
 				
-					var number = JSON.stringify(tvshow.Episodes[riviapu].Episode);
-					var name = JSON.stringify(tvshow.Episodes[riviapu].Title);
-					var rating = JSON.stringify(tvshow.Episodes[riviapu].imdbRating);
+					var number = JSON.parse(JSON.stringify(tvshow.Episodes[riviapu].Episode));
+					var name = JSON.parse(JSON.stringify(tvshow.Episodes[riviapu].Title));
+					var rating = JSON.parse(JSON.stringify(tvshow.Episodes[riviapu].imdbRating));
 				
 					name = name.replace(/\,/g,"");
 					cell1.innerHTML = number;
