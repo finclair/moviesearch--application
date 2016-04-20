@@ -56,11 +56,7 @@ _('search').addEventListener('submit', function(e) {
 			badge.appendChild(year);
 			badge.setAttribute('class', 'badge');
 
-
-			//<span class="badge">14</span
-
 			_('movie-listing').appendChild(movieListElement);
-
 			movieListElement.appendChild(badge);
 
 			function showMovieDetails(movieID) {
