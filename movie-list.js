@@ -51,7 +51,17 @@ _('search').addEventListener('submit', function(e) {
 				showMovieDetails(movie.imdbID);
 			}, false);
 
+			var year = document.createTextNode(movie.Year);
+			var badge = document.createElement('span');
+			badge.appendChild(year);
+			badge.setAttribute('class', 'badge');
+
+
+			//<span class="badge">14</span
+
 			_('movie-listing').appendChild(movieListElement);
+
+			movieListElement.appendChild(badge);
 
 			function showMovieDetails(movieID) {
 				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?plot=full&i=';
