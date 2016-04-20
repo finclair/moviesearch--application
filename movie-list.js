@@ -2,16 +2,7 @@ function _(id) {
 	return document.getElementById(id);
 }
 
-function fetchMovieData(url, callback) {
-
-
-	 if (_('movie-image').firstChild) {
-
-		 console.log('child found!');
-	 	_('movie-image').removeChild(_('movie-image').childNodes[0]);
-	 }
-
-
+function fetchOMDbData(url, callback) {
 	_('loading-message').innerHTML = 'Loading...';
 	var httpRequest = new XMLHttpRequest();
 
@@ -29,17 +20,19 @@ function fetchMovieData(url, callback) {
 _('search').addEventListener('submit', function(e) {
 	e.preventDefault();
 
+	var searchType = _('search-type');
+	var selectedSearchType = searchType.options[searchType.selectedIndex].value;
+
+
 	var searchWord = _('movie-input').value.trim();
 	var omdbBaseUrlList = 'http://www.omdbapi.com/?s=';
-	var urlForList = omdbBaseUrlList + searchWord;
-
+	var urlForList = omdbBaseUrlList + searchWord + '&type=' + selectedSearchType;
+	console.log(urlForList);
     if (searchWord) {
-        fetchMovieData(urlForList, logMovies);
+        fetchOMDbData(urlForList, logMovies);
     }
 
     function logMovies(movieList) {
-		console.log(movieList);
-
 		_('movie-listing').innerHTML = '';
 
 		if (!movieList.Search) {
@@ -48,7 +41,6 @@ _('search').addEventListener('submit', function(e) {
 		_('listing-header').innerHTML = 'Your search revealed following results..';
 
 		movieList.Search.forEach(function(movie) {
-
 			var title = document.createTextNode(movie.Title);
 			var movieListElement = document.createElement('a');
 			movieListElement.href = '#';
@@ -66,7 +58,7 @@ _('search').addEventListener('submit', function(e) {
 				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?plot=full&i=';
 				var urlForSingle = omdbBaseUrlSingle + movieID;
 
-				fetchMovieData(urlForSingle, showMovieData);
+				fetchOMDbData(urlForSingle, showMovieData);
 
 				function showMovieData(movie) {
 					_('title-of-movie').innerHTML = movie.Title;
@@ -74,10 +66,11 @@ _('search').addEventListener('submit', function(e) {
 					_('rate-of-movie').innerHTML = movie.Rated;
 					_('plot-of-movie').innerHTML = movie.Plot;
 
+					_('movie-image').innerHTML = '';
+
 					var img = document.createElement('img');
 					img.src = movie.Poster;
 					_('movie-image').appendChild(img);
-
 				}
 			}
 		});
@@ -102,31 +95,15 @@ _('search').addEventListener('submit', function(e) {
 
 
 
-function fetchTVShowData(url, callback) {
-	_('loading-message').innerHTML = 'Loading...';
-	var httpRequest = new XMLHttpRequest();
-	console.log("fetchTVShowData");
-	httpRequest.onreadystatechange = function() {
-		if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-			_('loading-message').innerHTML = '';
-			callback(JSON.parse(httpRequest.responseText));
-		}
-	};
-	httpRequest.open('GET', url);
-	httpRequest.send();
-}
-
 _('tvshow').addEventListener('submit', function(e) {
 	e.preventDefault();
 
-	var riviapu = 0;
-	
 	var searchWord = _('tvshow-input').value.trim();
 	var omdbBaseUrlList = 'http://www.omdbapi.com/?s=';
 	var urlForList = omdbBaseUrlList + searchWord + '&type=series';
 
     if (searchWord) {
-        fetchTVShowData(urlForList, LogTVShows);
+		fetchOMDbData(urlForList, LogTVShows);
     }
 
     function LogTVShows(tvshowList) {
@@ -153,7 +130,7 @@ _('tvshow').addEventListener('submit', function(e) {
 				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?plot=full&i=';
 				var urlForSingle = omdbBaseUrlSingle + tvshowID;
 
-				fetchTVShowData(urlForSingle, showTVShowData);
+				fetchOMDbData(urlForSingle, showTVShowData);
 
 				function showTVShowData(tvshow) {
 				console.log("showTVShowData");
@@ -164,19 +141,9 @@ _('tvshow').addEventListener('submit', function(e) {
 					//eka kausi
 				var omdbBaseUrlSingle2 = 'http://www.omdbapi.com/?i=';
 				var urlForSingle2 = omdbBaseUrlSingle2 + tvshowID + '&Season=1';
-					fetchTVShowData2(urlForSingle2, showTVShowFirstSeason);
+					fetchOMDbData(urlForSingle2, showTVShowFirstSeason);
 				}
-				
-				function fetchTVShowData2(url, callback) {
-				console.log("fetchTVShowData2");
-        httpRequest = new XMLHttpRequest();
 
-        httpRequest.onreadystatechange = callback;
-
-        httpRequest.open('GET', url);
-        httpRequest.send();
-    }
-								
 				function showTVShowFirstSeason(tvshow) {
 				console.log("showTVShowFirstSeason");
 					console.log(tvshow);
@@ -186,7 +153,7 @@ _('tvshow').addEventListener('submit', function(e) {
 					while(table.rows.length > 0) {
 						table.deleteRow(0);
 					}
-					riviapu = 0;
+					var riviapu = 0;
 					tvshow.Episodes.forEach(taulunTaytto);
 					
 					function taulunTaytto(element, index, array) {
@@ -209,7 +176,7 @@ _('tvshow').addEventListener('submit', function(e) {
 					riviapu++;
 				}
 				}
-				riviapu = 0;
+
 			}
 		});
     }
