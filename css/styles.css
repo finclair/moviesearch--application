@@ -1,16 +1,5 @@
-.icon-input-btn{
-    display: inline-block;
-    position: relative;
-}
-.icon-input-btn input[type="submit"]{
-    padding-left: 2em;
-}
-.icon-input-btn .glyphicon{
-    display: inline-block;
-    position: absolute;
-    left: 0.65em;
-    top: 25%;
-    color: white;
+.progress {
+    opacity: 0;
 }
 #movie-listing {
     list-style-type: none;

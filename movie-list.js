@@ -3,12 +3,11 @@ function _(id) {
 }
 
 function fetchOMDbData(url, callback) {
-	_('loading-message').innerHTML = 'Loading...';
+	_('loading-bar').style.opacity = '1';
 	var httpRequest = new XMLHttpRequest();
-
 	httpRequest.onreadystatechange = function() {
 		if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-			_('loading-message').innerHTML = '';
+			_('loading-bar').style.opacity = '0';
 			response = JSON.parse(httpRequest.responseText)
 			callback(response);
 		}
