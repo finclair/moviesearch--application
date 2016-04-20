@@ -12,4 +12,10 @@
     top: 25%;
     color: white;
 }
+#movie-listing {
+    list-style-type: none;
+}
 
+img {
+    max-width: 100%;
+}

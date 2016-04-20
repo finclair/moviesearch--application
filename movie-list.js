@@ -3,6 +3,15 @@ function _(id) {
 }
 
 function fetchMovieData(url, callback) {
+
+
+	 if (_('movie-image').firstChild) {
+
+		 console.log('child found!');
+	 	_('movie-image').removeChild(_('movie-image').childNodes[0]);
+	 }
+
+
 	_('loading-message').innerHTML = 'Loading...';
 	var httpRequest = new XMLHttpRequest();
 
@@ -37,17 +46,18 @@ _('search').addEventListener('submit', function(e) {
 			return;
 		}
 		_('listing-header').innerHTML = 'Your search revealed following results..';
-//
+
 		movieList.Search.forEach(function(movie) {
 			var movieElement = document.createElement('li');
 			var title = document.createTextNode(movie.Title);
+			var title2 = document.createTextNode(movie.Year);
 			movieElement.appendChild(title);
 			//movieElement.setAttribute("class", "list-group-item");
 
 			var a = document.createElement('a');
-			a.href = "#";
+			a.href = '#';
 			a.appendChild(title);
-			a.setAttribute("class", "list-group-item");
+			a.setAttribute('class', 'list-group-item');
 
 			movieElement.addEventListener('click', function() {
 				showMovieDetails(movie.imdbID);
@@ -67,6 +77,11 @@ _('search').addEventListener('submit', function(e) {
 					_('year-of-movie').innerHTML = movie.Year;
 					_('rate-of-movie').innerHTML = movie.Rated;
 					_('plot-of-movie').innerHTML = movie.Plot;
+
+					var img = document.createElement('img');
+					img.src = movie.Poster;
+					_('movie-image').appendChild(img);
+
 				}
 			}
 		});
@@ -94,7 +109,7 @@ _('search').addEventListener('submit', function(e) {
 function fetchTVShowData(url, callback) {
 	_('loading-message').innerHTML = 'Loading...';
 	var httpRequest = new XMLHttpRequest();
-console.log("fetchTVShowData");
+	console.log("fetchTVShowData");
 	httpRequest.onreadystatechange = function() {
 		if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 			_('loading-message').innerHTML = '';
