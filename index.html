@@ -20,15 +20,20 @@
 		</nav>
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12">
+				<div class="col-sm-7">
 					<div class="well">
 						<form id="search">
-							<label for="movie-input">Write the name of the movie here:</label>
-							<input id="movie-input">
-							<span class="icon-input-btn"><span class="glyphicon glyphicon-search"></span>
-								<input class="btn-primary" type="submit" value="Search">
-							</span>
+							<div class="input-group">
+								<input id="movie-input" type="text" class="form-control" placeholder="Search for movies...">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="submit">
+										<span class="glyphicon glyphicon-search"></span> Search
+									</button>
+								</span>
+							</div><!-- /input-group -->
 						</form>
+
+
 						<form id="tvshow">
 							<label for="tvshow-input">Type a TV show here:</label>
 							<input id="tvshow-input" value="">
@@ -40,20 +45,7 @@
 					<div id="loading-message"></div>
 					<h3 id= "listing-header" class="list-group-item list-group-item-info"></h3>
 
-					<ul id="movie-listing" class="list-group"></ul>
-					<div class="col-sm-12">
-						<div class="movie-info col-sm-9">
-							<article>
-								<p id="title-of-movie"></p>
-								<p id="year-of-movie"></p>
-								<p id="rate-of-movie"></p>
-								<p id="plot-of-movie"></p>
-							</article>
-						</div>
-						<div id="movie-image" class="col-sm-3">
-						</div>
-					</div>
-
+					<div id="movie-listing" class="list-group"></div>
 					
 					<ul id="tvshow-listing"></ul>
 					<article>
@@ -64,6 +56,19 @@
 					</article>
 					<table id="S1episodes"style="width:50%"></table>
 					
+				</div>
+				<div class="col-sm-5">
+
+						<div class="movie-info">
+							<article>
+								<p id="title-of-movie"></p>
+								<p id="year-of-movie"></p>
+								<p id="rate-of-movie"></p>
+								<p id="plot-of-movie"></p>
+							</article>
+						</div>
+						<div id="movie-image"></div>
+
 				</div>
 			</div>
 		</div>

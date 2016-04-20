@@ -48,23 +48,19 @@ _('search').addEventListener('submit', function(e) {
 		_('listing-header').innerHTML = 'Your search revealed following results..';
 
 		movieList.Search.forEach(function(movie) {
-			var movieElement = document.createElement('li');
+
 			var title = document.createTextNode(movie.Title);
-			var title2 = document.createTextNode(movie.Year);
-			movieElement.appendChild(title);
-			//movieElement.setAttribute("class", "list-group-item");
+			var movieListElement = document.createElement('a');
+			movieListElement.href = '#';
+			movieListElement.appendChild(title);
+			movieListElement.setAttribute('class', 'list-group-item');
 
-			var a = document.createElement('a');
-			a.href = '#';
-			a.appendChild(title);
-			a.setAttribute('class', 'list-group-item');
-
-			movieElement.addEventListener('click', function() {
+			movieListElement.addEventListener('click', function(e) {
+				e.preventDefault();
 				showMovieDetails(movie.imdbID);
 			}, false);
-			_('movie-listing').appendChild(movieElement);
 
-			movieElement.appendChild(a);
+			_('movie-listing').appendChild(movieListElement);
 
 			function showMovieDetails(movieID) {
 				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?plot=full&i=';
