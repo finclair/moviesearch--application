@@ -44,12 +44,8 @@ _('search').addEventListener('submit', function(e) {
 			var movieListElement = document.createElement('a');
 			movieListElement.href = '#';
 			movieListElement.appendChild(title);
-			movieListElement.setAttribute('class', 'list-group-item');
 
-			movieListElement.addEventListener('click', function(e) {
-				e.preventDefault();
-				showMovieDetails(movie.imdbID);
-			}, false);
+			movieListElement.setAttribute('class', 'list-group-item');
 
 			var year = document.createTextNode(movie.Year);
 			var badge = document.createElement('span');
@@ -58,6 +54,21 @@ _('search').addEventListener('submit', function(e) {
 
 			_('movie-listing').appendChild(movieListElement);
 			movieListElement.appendChild(badge);
+
+			movieListElement.addEventListener('click', function(e) {
+				e.preventDefault();
+
+				showMovieDetails(movie.imdbID);
+
+				var parent = _('movie-listing');
+				var childs = parent.getElementsByTagName('a')
+				for (var i=0; i < childs.length; i++) {
+					childs[i].setAttribute('class', 'list-group-item');
+				}
+
+				movieListElement.setAttribute('class', 'list-group-item active');
+
+			}, false);
 
 			function showMovieDetails(movieID) {
 				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?plot=full&i=';
@@ -76,6 +87,7 @@ _('search').addEventListener('submit', function(e) {
 					var img = document.createElement('img');
 					img.src = movie.Poster;
 					_('movie-image').appendChild(img);
+
 				}
 			}
 		});
