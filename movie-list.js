@@ -80,7 +80,13 @@ _('search').addEventListener('submit', function(e) {
 					_('title-of-movie').innerHTML = movie.Title;
 					_('year-of-movie').innerHTML = movie.Year;
 					_('rate-of-movie').innerHTML = movie.Rated;
+					if (movie.Rated == 'N/A') {
+						_('rate-of-movie').innerHTML = '';
+					}
+					_('director-of-movie').innerHTML = 'Director: ' + movie.Director;
+					_('actors-of-movie').innerHTML = 'Leading Roles: ' + movie.Actors;
 					_('plot-of-movie').innerHTML = movie.Plot;
+					_('imdb-rate-of-movie').innerHTML = movie.imdbRating;
 
 					_('movie-image').innerHTML = '';
 
