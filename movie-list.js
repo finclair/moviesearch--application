@@ -61,7 +61,8 @@ _('search').addEventListener('submit', function(e) {
 				showMovieDetails(movie.imdbID);
 
 				var parent = _('movie-listing');
-				var childs = parent.getElementsByTagName('a')
+				var childs = parent.getElementsByTagName('a');
+
 				for (var i=0; i < childs.length; i++) {
 					childs[i].setAttribute('class', 'list-group-item');
 				}
@@ -77,10 +78,12 @@ _('search').addEventListener('submit', function(e) {
 				fetchOMDbData(urlForSingle, showMovieData);
 
 				function showMovieData(movie) {
+
+					_('oscars-of-movie').innerHTML = '';
 					_('title-of-movie').innerHTML = movie.Title;
 					_('year-of-movie').innerHTML = movie.Year;
 					_('rate-of-movie').innerHTML = movie.Rated;
-					if (movie.Rated == 'N/A') {
+					if (movie.Rated == 'N/A' || movie.Rated == 'NOT RATED') {
 						_('rate-of-movie').innerHTML = '';
 					}
 					_('director-of-movie').innerHTML = 'Director: ' + movie.Director;
@@ -88,6 +91,37 @@ _('search').addEventListener('submit', function(e) {
 					_('plot-of-movie').innerHTML = movie.Plot;
 					_('imdb-rate-of-movie').innerHTML = movie.imdbRating;
 
+					if(movie.imdbRating >= 8 ) {
+						_('imdb-rate-of-movie').style.color = 'green';
+					}
+					else if (movie.imdbRating < 8 && movie.imdbRating >= 7) {
+						_('imdb-rate-of-movie').style.color = 'greenyellow';
+					}
+					else if (movie.imdbRating < 7 && movie.imdbRating >= 5.5) {
+						_('imdb-rate-of-movie').style.color = 'yellow';
+					}
+					else if (movie.imdbRating < 5.5 && movie.imdbRating >= 4) {
+						_('imdb-rate-of-movie').style.color = 'orangered';
+					}
+					else {
+						_('imdb-rate-of-movie').style.color = 'red';
+					}
+
+					_('votes-of-movie').innerHTML = 'Votes:' + movie.imdbVotes;
+
+					if(movie.Awards.indexOf('Oscar') >= 0) {
+
+						if(movie.Awards.indexOf('Nominated') >= 0) {
+							var awardArray =  movie.Awards.split(' ', 4);
+							var awardText = awardArray.join(' ');
+							_('oscars-of-movie').innerHTML = awardText;
+						}
+						else {
+							var awardArray =  movie.Awards.split(' ', 3);
+							var awardText = awardArray.join(' ');
+							_('oscars-of-movie').innerHTML = awardText;
+						}
+					}
 					_('movie-image').innerHTML = '';
 
 					var img = document.createElement('img');
