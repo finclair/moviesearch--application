@@ -142,7 +142,7 @@ _('search').addEventListener('submit', function(e) {
 
 
 
-
+/*
 _('tvshow').addEventListener('submit', function(e) {
 	e.preventDefault();
 
@@ -230,3 +230,4 @@ _('tvshow').addEventListener('submit', function(e) {
     }
 
 });
+	*/
