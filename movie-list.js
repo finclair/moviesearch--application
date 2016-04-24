@@ -8,7 +8,7 @@ function fetchOMDbData(url, callback) {
 	httpRequest.onreadystatechange = function() {
 		if (httpRequest.readyState === 4 && httpRequest.status === 200) {
 			_('loading-bar').style.opacity = '0';
-			response = JSON.parse(httpRequest.responseText)
+			response = JSON.parse(httpRequest.responseText);
 			callback(response);
 		}
 	};
@@ -22,11 +22,10 @@ _('search').addEventListener('submit', function(e) {
 	var searchType = _('search-type');
 	var selectedSearchType = searchType.options[searchType.selectedIndex].value;
 
-
 	var searchWord = _('movie-input').value.trim();
 	var omdbBaseUrlList = 'http://www.omdbapi.com/?s=';
 	var urlForList = omdbBaseUrlList + searchWord + '&type=' + selectedSearchType;
-	console.log(urlForList);
+
     if (searchWord) {
         fetchOMDbData(urlForList, logMovies);
     }
@@ -35,9 +34,10 @@ _('search').addEventListener('submit', function(e) {
 		_('movie-listing').innerHTML = '';
 
 		if (!movieList.Search) {
+			_('listing-header').innerHTML = 'No movies found with "' + searchWord + '"';
 			return;
 		}
-		_('listing-header').innerHTML = 'Your search revealed following results..';
+		_('listing-header').innerHTML = 'Your search with "' + searchWord + '"';
 
 		movieList.Search.forEach(function(movie) {
 			var title = document.createTextNode(movie.Title);
@@ -107,11 +107,10 @@ _('search').addEventListener('submit', function(e) {
 						_('imdb-rate-of-movie').style.color = 'red';
 					}
 
-					_('votes-of-movie').innerHTML = 'Votes:' + movie.imdbVotes;
+					_('votes-of-movie').innerHTML = 'Votes: ' + movie.imdbVotes;
 
-					if(movie.Awards.indexOf('Oscar') >= 0) {
-
-						if(movie.Awards.indexOf('Nominated') >= 0) {
+					if (movie.Awards.indexOf('Oscar') >= 0) {
+						if (movie.Awards.indexOf('Nominated') >= 0) {
 							var awardArray =  movie.Awards.split(' ', 4);
 							var awardText = awardArray.join(' ');
 							_('oscars-of-movie').innerHTML = awardText;
