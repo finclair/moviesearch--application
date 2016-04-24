@@ -59,17 +59,17 @@ _('search').addEventListener('submit', function(e) {
 				e.preventDefault();
 
 				showMovieDetails(movie.imdbID);
+				highlightCurrent();
+			}, false);
 
-				var parent = _('movie-listing');
-				var childs = parent.getElementsByTagName('a');
-
-				for (var i=0; i < childs.length; i++) {
-					childs[i].setAttribute('class', 'list-group-item');
+			function highlightCurrent() {
+				var movieListElements = document.getElementsByClassName('list-group-item');
+				for (var i = 0; i < movieListElements.length; i++) {
+					movieListElements[i].setAttribute('class', 'list-group-item');
 				}
 
 				movieListElement.setAttribute('class', 'list-group-item active');
-
-			}, false);
+			}
 
 			function showMovieDetails(movieID) {
 				var omdbBaseUrlSingle = 'http://www.omdbapi.com/?plot=full&i=';
@@ -78,7 +78,6 @@ _('search').addEventListener('submit', function(e) {
 				fetchOMDbData(urlForSingle, showMovieData);
 
 				function showMovieData(movie) {
-
 					_('oscars-of-movie').innerHTML = '';
 					_('title-of-movie').innerHTML = movie.Title;
 					_('year-of-movie').innerHTML = movie.Year;
@@ -91,20 +90,14 @@ _('search').addEventListener('submit', function(e) {
 					_('plot-of-movie').innerHTML = movie.Plot;
 					_('imdb-rate-of-movie').innerHTML = movie.imdbRating;
 
-					if(movie.imdbRating >= 8 ) {
-						_('imdb-rate-of-movie').style.color = 'green';
+					if (movie.imdbRating >= 7.0) {
+						_('imdb-rate-of-movie').setAttribute('class', 'label label-success');
 					}
-					else if (movie.imdbRating < 8 && movie.imdbRating >= 7) {
-						_('imdb-rate-of-movie').style.color = 'greenyellow';
-					}
-					else if (movie.imdbRating < 7 && movie.imdbRating >= 5.5) {
-						_('imdb-rate-of-movie').style.color = 'yellow';
-					}
-					else if (movie.imdbRating < 5.5 && movie.imdbRating >= 4) {
-						_('imdb-rate-of-movie').style.color = 'orangered';
+					else if (movie.imdbRating >= 5.5) {
+						_('imdb-rate-of-movie').setAttribute('class', 'label label-warning');
 					}
 					else {
-						_('imdb-rate-of-movie').style.color = 'red';
+						_('imdb-rate-of-movie').setAttribute('class', 'label label-danger');
 					}
 
 					_('votes-of-movie').innerHTML = 'Votes: ' + movie.imdbVotes;
@@ -121,12 +114,11 @@ _('search').addEventListener('submit', function(e) {
 							_('oscars-of-movie').innerHTML = awardText;
 						}
 					}
-					_('movie-image').innerHTML = '';
 
+					_('movie-image').innerHTML = '';
 					var img = document.createElement('img');
 					img.src = movie.Poster;
 					_('movie-image').appendChild(img);
-
 				}
 			}
 		});
