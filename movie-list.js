@@ -85,7 +85,6 @@ _('#search').addEventListener('submit', function(e) {
 				fetchOMDbData(urlForSingle, showMovieData);
 
 				function showMovieData(movie) {
-					_('#oscars-of-movie').innerHTML = '';
 					_('#title-of-movie').innerHTML = movie.Title;
 					_('#year-of-movie').innerHTML = movie.Year;
 					_('#rate-of-movie').innerHTML = movie.Rated;
@@ -95,8 +94,7 @@ _('#search').addEventListener('submit', function(e) {
 					_('#director-of-movie').innerHTML = 'Director: ' + movie.Director;
 					_('#actors-of-movie').innerHTML = 'Leading Roles: ' + movie.Actors;
 					_('#plot-of-movie').innerHTML = movie.Plot;
-					_('#imdb-rate-of-movie').innerHTML = movie.imdbRating;
-
+					
 					if (movie.imdbRating >= 7.0) {
 						_('#imdb-rate-of-movie').setAttribute('class', 'label label-success');
 					}
@@ -106,20 +104,20 @@ _('#search').addEventListener('submit', function(e) {
 					else {
 						_('#imdb-rate-of-movie').setAttribute('class', 'label label-danger');
 					}
+					_('#imdb-rate-of-movie').innerHTML = movie.imdbRating;
 
 					_('#votes-of-movie').innerHTML = 'Votes: ' + movie.imdbVotes;
 
+					_('#oscars-of-movie').innerHTML = '';
 					if (movie.Awards.indexOf('Oscar') >= 0) {
 						if (movie.Awards.indexOf('Nominated') >= 0) {
-							var awardArray =  movie.Awards.split(' ', 4);
-							var awardText = awardArray.join(' ');
-							_('#oscars-of-movie').innerHTML = awardText;
+							var awardArray =  movie.Awards.split(' ', 4);	
 						}
 						else {
 							var awardArray =  movie.Awards.split(' ', 3);
-							var awardText = awardArray.join(' ');
-							_('#oscars-of-movie').innerHTML = awardText;
 						}
+						var awardText = awardArray.join(' ');
+						_('#oscars-of-movie').innerHTML = awardText;
 					}
 
 					_('#movie-image').innerHTML = '';
